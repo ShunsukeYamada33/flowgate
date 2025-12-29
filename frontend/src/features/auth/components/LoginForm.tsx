@@ -1,8 +1,7 @@
 ﻿import {Link, useSearchParams} from 'react-router';
 import {paths} from "@/config/paths.ts";
-import * as React from "react";
 import {useEffect, useState} from "react";
-import {useLogin} from "@/features/auth/hooks/useLogin.ts";
+import {useLogin} from "@/lib/Auth";
 
 
 type LoginFormProps = {
@@ -18,12 +17,7 @@ export const LoginForm = ({onSuccess, defaultEmail}: LoginFormProps) => {
     const redirectTo = searchParams.get('redirectTo');
 
 
-    const {login, isLoading, error} = useLogin(onSuccess);
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        await login({email, password});
-    };
+    const login = useLogin({onSuccess});
 
     useEffect(() => {
         setEmail(defaultEmail);
@@ -31,7 +25,10 @@ export const LoginForm = ({onSuccess, defaultEmail}: LoginFormProps) => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(e) => {
+                e.preventDefault();
+                login.mutate({email, password});
+            }}>
                 <div>
                     <label>Email Address</label>
                     <input
@@ -51,12 +48,6 @@ export const LoginForm = ({onSuccess, defaultEmail}: LoginFormProps) => {
                         required
                     />
                 </div>
-
-                {error && <p style={{color: 'red'}}>{error}</p>}
-
-                <button type="submit" disabled={isLoading}>
-                    {isLoading ? 'Logging in...' : 'Log in'}
-                </button>
             </form>
 
             <div className="mt-2 flex items-center justify-end">

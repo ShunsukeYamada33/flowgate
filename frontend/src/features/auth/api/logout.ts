@@ -1,12 +1,8 @@
-﻿import type {LoginInput} from "@/features/auth/types";
+﻿export const logout = async () => {
 
-
-export const login = async (input: LoginInput) => {
-
-    const res = await fetch('/auth/login', {
-        method: 'POST',
+    const res = await fetch('/auth/logout', {
+        method: 'GET',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(input),
     });
 
     if (!res.ok) throw new Error('Login failed');

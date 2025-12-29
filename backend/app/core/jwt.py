@@ -1,5 +1,4 @@
-﻿# app/core/jwt.py
-from datetime import datetime, timedelta
+﻿from datetime import datetime, timedelta
 from jose import jwt
 
 import app.core.config as config

@@ -16,3 +16,23 @@ def create_user(db: Session, email: str, password_hash: str, role: str):
     db.commit()
     db.refresh(user)
     return user
+
+
+def submit(db: Session):
+    db.commit()
+
+
+def approve(db: Session, approver_id: str, comment: str):
+    db.commit()
+
+
+def reject(db: Session, approver_id: str, comment: str):
+    db.commit()
+
+
+def return_to_applicant(db: Session, approver_id: str, comment: str):
+    db.commit()
+
+
+def edit(db: Session, content: str):
+    db.commit()

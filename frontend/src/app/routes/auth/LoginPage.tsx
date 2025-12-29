@@ -1,7 +1,7 @@
 import {AuthLayout} from '@/components/layouts/AuthLayout';
-import {LoginForm} from '@/features/auth/components/LoginForm.tsx';
+import {LoginForm} from '@/features/auth/components/LoginForm';
 import {useNavigate, useSearchParams} from "react-router";
-import {paths} from "@/config/paths.ts";
+import {paths} from "@/config/paths";
 import {useLocation} from "react-router-dom";
 
 function LoginPage() {
@@ -16,7 +16,7 @@ function LoginPage() {
             <LoginForm
                 onSuccess={() => {
                     navigate(
-                        redirectTo ?? paths.app.dashboard.getHref(),
+                        redirectTo ?? paths.app.applications.getHref(),
                         {replace: true}
                     );
                 }}

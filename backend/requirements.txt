@@ -1,1 +1,4 @@
 ﻿passlib
+starlette
+fastapi
+sqlalchemy

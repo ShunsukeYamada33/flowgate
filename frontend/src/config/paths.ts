@@ -16,15 +16,14 @@
                 `/auth/login${redirectTo ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''}`,
         },
     },
-
     app: {
         root: {
             path: '/app',
             getHref: () => '/app',
         },
-        dashboard: {
-            path: '',
-            getHref: () => '/app',
+        applications: {
+            path: '/app/app',
+            getHref: () => '/app/app',
         },
         discussions: {
             path: 'discussions',
@@ -42,5 +41,5 @@
             path: 'profile',
             getHref: () => '/app/profile',
         },
-    },
+    }
 } as const;

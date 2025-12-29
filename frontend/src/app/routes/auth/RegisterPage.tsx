@@ -1,7 +1,7 @@
 ﻿import {AuthLayout} from '@/components/layouts/AuthLayout';
 import {useNavigate, useSearchParams} from "react-router";
-import {paths} from "@/config/paths.ts";
-import {RegisterForm} from "@/features/auth/components/RegisterForm.tsx";
+import {paths} from "@/config/paths";
+import {RegisterForm} from "@/features/auth/components/RegisterForm";
 
 function RegisterPage() {
     const navigate = useNavigate();

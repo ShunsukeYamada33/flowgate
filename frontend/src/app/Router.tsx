@@ -1,16 +1,15 @@
-import {Routes, Route, Navigate} from "react-router-dom";
-import {paths} from "@/config/paths.ts";
-import RegisterPage from "@/app/routes/login/RegisterPage";
-import LoginPage from "@/app/routes/login/LoginPage";
+import {RouterProvider} from "react-router-dom";
+import {useQueryClient} from "@tanstack/react-query";
+import {useMemo} from "react";
+import {createAppRouter} from "@/app/CreateAppRouter";
 
-function Router() {
-    return (
-        <Routes>
-            <Route path={paths.home.path} element={<Navigate to={paths.auth.login.getHref()} replace/>}/>
-            <Route path={paths.auth.login.path} element={<LoginPage/>}/>
-            <Route path={paths.auth.register.path} element={<RegisterPage/>}/>
-        </Routes>
-    );
-}
+
+const Router = () => {
+    const queryClient = useQueryClient();
+
+    const router = useMemo(() => createAppRouter(queryClient), [queryClient]);
+
+    return <RouterProvider router={router}/>;
+};
 
 export default Router;

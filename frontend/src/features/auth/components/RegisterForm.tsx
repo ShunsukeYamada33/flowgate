@@ -1,8 +1,8 @@
 ﻿import {useState} from "react";
 import * as React from "react";
 import {useRegister} from "@/features/auth/hooks/useRegister";
-import {USER_ROLES} from "@/constants/userRole.ts";
-import type {RegisterInput} from "@/features/auth/types.ts";
+import {USER_ROLES} from "@/constants/userRole";
+import type {RegisterInput} from "@/features/auth/types";
 
 type RegisterFormProps = {
     onSuccess: (email: string) => void;

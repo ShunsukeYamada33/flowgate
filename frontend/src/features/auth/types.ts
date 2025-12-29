@@ -12,3 +12,13 @@ export type RegisterInput = {
     password: string;
     role: UserRole;
 };
+
+export type User = {
+    email: string;
+    role: UserRole;
+};
+
+export type AuthResponse = {
+    jwt: string;
+    user: User;
+};

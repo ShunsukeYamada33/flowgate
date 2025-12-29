@@ -3,7 +3,7 @@
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_current_user_id, get_db
-from app.schemas.auth import LoginResponse, LoginRequest, RegisterRequest, RegisterResponse
+from app.schemas.auth import LoginResponse, LoginRequest, RegisterRequest
 from app.services.auth_service import login as login_service
 from app.services.auth_service import register as register_service
 
@@ -15,8 +15,8 @@ def login(
         data: LoginRequest,
         db: Session = Depends(get_db),
 ):
-    token = login_service(db, str(data.email), data.password)
-    return {"access_token": token}
+    result = login_service(db, str(data.email), data.password)
+    return {"access_token": result.access_token, "role": result.access_token}
 
 
 @router.post("/register")
