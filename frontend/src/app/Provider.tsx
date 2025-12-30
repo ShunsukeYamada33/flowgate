@@ -1,6 +1,5 @@
 ﻿import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import * as React from 'react';
-import {BrowserRouter} from "react-router-dom";
 import {AuthLoader} from "@/lib/Auth";
 import {queryConfig} from "@/lib/react-query";
 import {Spinner} from "@/components/ui/Spinner";
@@ -18,12 +17,10 @@ export const AppProvider = ({children}: AppProviderProps) => {
     );
 
     return (
-        <BrowserRouter>
-            <QueryClientProvider client={queryClient}>
-                <AuthLoader renderLoading={() => (<Spinner/>)}>
-                    {children}
-                </AuthLoader>
-            </QueryClientProvider>
-        </BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+            <AuthLoader renderLoading={() => (<Spinner/>)}>
+                {children}
+            </AuthLoader>
+        </QueryClientProvider>
     );
 };

@@ -1,7 +1,7 @@
 ﻿import uuid
 from datetime import datetime
 
-from sqlalchemy import String, Text, ForeignKey
+from sqlalchemy import String, Text, ForeignKey, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -33,9 +33,9 @@ class ApprovalHistory(Base):
 
     comment: Mapped[str | None] = mapped_column(Text)
     acted_at: Mapped[datetime] = mapped_column(
-        default=datetime.utcnow,
+        server_default=func.now(),
         nullable=False,
     )
 
     application = relationship("Application", back_populates="approval_histories")
-    actor = relationship("User")
+    actor = relationship("User", back_populates="approval_histories", foreign_keys=[actor_id])

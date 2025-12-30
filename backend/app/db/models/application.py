@@ -25,9 +25,5 @@ class Application(Base):
     title: Mapped[str] = mapped_column(String, nullable=False)
     content: Mapped[str] = mapped_column(Text, nullable=False)
 
-    applicant = relationship("User")
-    approval_histories = relationship(
-        "ApprovalHistory",
-        back_populates="application",
-        cascade="all, delete-orphan",
-    )
+    applicant = relationship("User", back_populates="applications", foreign_keys=[applicant_id])
+    approval_histories = relationship("ApprovalHistory", back_populates="application", cascade="all, delete-orphan",                                      )

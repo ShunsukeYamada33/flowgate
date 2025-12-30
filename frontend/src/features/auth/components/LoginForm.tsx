@@ -48,6 +48,8 @@ export const LoginForm = ({onSuccess, defaultEmail}: LoginFormProps) => {
                         required
                     />
                 </div>
+
+                <button type="submit">ログイン</button>
             </form>
 
             <div className="mt-2 flex items-center justify-end">

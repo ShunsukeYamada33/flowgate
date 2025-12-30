@@ -8,13 +8,11 @@ type LayoutProps = {
 
 
 export const AuthLayout = ({children, title}: LayoutProps) => {
-
     return (
         <>
             <Head title={title}/>
             <div>
                 <div>
-
                     <h2>
                         {title}
                     </h2>

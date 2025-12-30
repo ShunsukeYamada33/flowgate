@@ -2,3 +2,6 @@
 starlette
 fastapi
 sqlalchemy
+pydantic
+python-jose
+python-dotenv

@@ -22,8 +22,8 @@
             getHref: () => '/app',
         },
         applications: {
-            path: '/app/app',
-            getHref: () => '/app/app',
+            path: '/app/applications',
+            getHref: () => '/app/applications',
         },
         discussions: {
             path: 'discussions',
