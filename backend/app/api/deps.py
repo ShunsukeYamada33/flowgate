@@ -1,23 +1,16 @@
-﻿from fastapi import Depends, HTTPException
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from jose import jwt, JWTError
+﻿from fastapi import HTTPException, Request
 
-import app.core.config as config
 from app.db.session import SessionLocal
+from app.core.jwt import verify_access_token
 
-security = HTTPBearer()
 
+def get_current_user(request: Request):
+    token = request.cookies.get("access_token")
+    if not token:
+        raise HTTPException(status_code=401)
 
-def get_current_user_id(
-        credentials: HTTPAuthorizationCredentials = Depends(security),
-) -> str:
-    token = credentials.credentials
+    return verify_access_token(token)
 
-    try:
-        payload = jwt.decode(token, config.SECRET_KEY, algorithms=[config.ALGORITHM])
-        return payload["sub"]
-    except JWTError:
-        raise HTTPException(status_code=401, detail="Invalid token")
 
 def get_db():
     db = SessionLocal()

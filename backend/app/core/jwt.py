@@ -13,7 +13,7 @@ def create_access_token(user_id: str) -> str:
     return jwt.encode(payload, config.SECRET_KEY, algorithm=config.ALGORITHM)
 
 
-def decode_jwt(token: str) -> dict:
+def verify_access_token(token: str) -> dict:
     try:
         payload = jwt.decode(
             token,

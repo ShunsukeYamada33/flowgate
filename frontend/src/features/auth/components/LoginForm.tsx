@@ -52,11 +52,8 @@ export const LoginForm = ({onSuccess, defaultEmail}: LoginFormProps) => {
                 <button type="submit">ログイン</button>
             </form>
 
-            <div className="mt-2 flex items-center justify-end">
-                <Link
-                    to={paths.auth.register.getHref(redirectTo)}
-                    className="font-medium text-blue-600 hover:text-blue-500"
-                >
+            <div>
+                <Link to={paths.auth.register.getHref(redirectTo)}>
                     Register
                 </Link>
             </div>

@@ -41,5 +41,11 @@
             path: 'profile',
             getHref: () => '/app/profile',
         },
+    },
+    error: {
+        root: {
+            path: '/error',
+            getHref: () => '/error',
+        }
     }
 } as const;
