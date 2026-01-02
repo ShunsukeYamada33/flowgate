@@ -1,21 +1,20 @@
 ﻿import {AuthLayout} from '@/components/layouts/AuthLayout';
-import {useNavigate, useSearchParams} from "react-router";
+import {useNavigate} from "react-router";
 import {paths} from "@/config/paths";
 import {RegisterForm} from "@/features/auth/components/RegisterForm";
 
 function RegisterPage() {
     const navigate = useNavigate();
-    const [searchParams] = useSearchParams();
-    const redirectTo = searchParams.get('redirectTo');
 
     return (
         <AuthLayout title="ユーザー登録">
             <RegisterForm
                 onSuccess={(email) => {
+                    console.log(email);
+                    console.log(paths.auth.login.getHref());
                     navigate(
-                        redirectTo ?? paths.auth.login.getHref(),
+                        paths.auth.login.path,
                         {
-                            replace: true,
                             state: {email}
                         }
                     );

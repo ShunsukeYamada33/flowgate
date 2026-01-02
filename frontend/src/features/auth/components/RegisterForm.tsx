@@ -56,6 +56,10 @@ export const RegisterForm = ({onSuccess}: RegisterFormProps) => {
                     ))}
                 </select>
             </div>
+
+            <button type="submit">
+                登録
+            </button>
         </form>
     );
 };

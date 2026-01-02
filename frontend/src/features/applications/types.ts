@@ -4,8 +4,8 @@
 export type Application = {
     id: string;
     title: string;
+    content: string | null;
     status: ApplicationStatus;
-    createdAt: string;
 };
 
 export type RegisterInput = {
@@ -13,6 +13,12 @@ export type RegisterInput = {
     content: string;
     status: ApplicationStatus;
 };
+
+export type UpdateInput = {
+    id: string;
+    content: string;
+    status: ApplicationStatus;
+}
 
 export const APPLICATION_STATUS_FOR_REGISTER: ApplicationStatus[] = [
     "draft",

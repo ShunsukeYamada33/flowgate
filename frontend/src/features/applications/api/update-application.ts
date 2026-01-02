@@ -1,9 +1,9 @@
-﻿import type {RegisterInput} from "@/features/applications/types";
+﻿import type {UpdateInput} from "@/features/applications/types";
 
 
-export const register = async (input: RegisterInput) => {
+export const update = async (input: UpdateInput) => {
 
-    const res = await fetch('/api/app/register-application', {
+    const res = await fetch('/api/app/update-application', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',

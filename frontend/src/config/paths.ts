@@ -25,21 +25,13 @@
             path: '/app/applications',
             getHref: () => '/app/applications',
         },
-        register: {
+        applicationRegister: {
             path: '/app/application-register',
             getHref: () => '/app/application-register',
         },
-        discussion: {
-            path: 'discussions/:discussionId',
-            getHref: (id: string) => `/app/discussions/${id}`,
-        },
-        users: {
-            path: 'users',
-            getHref: () => '/app/users',
-        },
-        profile: {
-            path: 'profile',
-            getHref: () => '/app/profile',
+        applicationCheck: {
+            path: '/app/application-check',
+            getHref: () => '/app/application-check',
         },
     },
     error: {

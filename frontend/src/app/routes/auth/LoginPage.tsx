@@ -1,13 +1,11 @@
 import {AuthLayout} from '@/components/layouts/AuthLayout';
 import {LoginForm} from '@/features/auth/components/LoginForm';
-import {useNavigate, useSearchParams} from "react-router";
+import {useNavigate} from "react-router";
 import {paths} from "@/config/paths";
 import {useLocation} from "react-router-dom";
 
 function LoginPage() {
     const navigate = useNavigate();
-    const [searchParams] = useSearchParams();
-    const redirectTo = searchParams.get('redirectTo');
     const location = useLocation();
     const defaultEmail = location.state?.email ?? '';
 
@@ -16,7 +14,8 @@ function LoginPage() {
             <LoginForm
                 onSuccess={() => {
                     navigate(
-                        redirectTo ?? paths.home.getHref()
+                        paths.home.path,
+                        {replace: true}
                     );
                 }}
                 defaultEmail={defaultEmail}

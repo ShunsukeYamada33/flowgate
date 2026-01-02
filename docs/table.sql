@@ -45,3 +45,6 @@ CREATE TABLE approval_histories(
 
 select * from users;
 delete from users where email = 'test@test.com';
+
+
+select * from applications where  applicant_id = 'f2abd2da-53e9-4197-915d-f93dfb6ac8ce';

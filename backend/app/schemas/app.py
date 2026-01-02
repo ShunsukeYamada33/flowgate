@@ -1,11 +1,23 @@
 ﻿from pydantic import BaseModel
+from uuid import UUID
 
 
 class ApplicationsResponse(BaseModel):
-    id: str
-    status: str
+    id: UUID
     title: str
+    content: str
+    status: str
+
+    class Config:
+        json_encoders = {
+            UUID: lambda v: str(v)
+        }
+
 
 class RegisterRequest(BaseModel):
     title: str
     content: str
+    status: str
+
+class CheckRequest(BaseModel):
+    id: str

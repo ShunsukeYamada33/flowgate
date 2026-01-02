@@ -8,3 +8,8 @@
 
 export type ApplicationStatus =
     typeof APPLICATION_STATUS[number]["value"];
+
+export const APPLICATION_STATUS_LABEL_MAP: Record<ApplicationStatus, string> =
+    Object.fromEntries(
+        APPLICATION_STATUS.map(s => [s.value, s.label])
+    ) as Record<ApplicationStatus, string>;
