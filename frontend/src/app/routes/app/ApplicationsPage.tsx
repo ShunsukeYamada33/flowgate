@@ -1,5 +1,5 @@
-﻿import {ApplicationTable} from "@/features/applications/components/ApplicationTable.tsx";
-import {ContentLayout} from "@/components/layouts/ContentLayout.tsx";
+﻿import {ApplicationTable} from "@/features/applications/components/ApplicationTable";
+import {ContentLayout} from "@/components/layouts/ContentLayout";
 
 function ApplicationsPage() {
 

@@ -1,4 +1,4 @@
-﻿import {FetchError} from "@/lib/fetch-error.ts";
+﻿import {FetchError} from "@/lib/fetch-error";
 
 export const me = async () => {
 

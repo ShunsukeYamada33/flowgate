@@ -25,9 +25,9 @@
             path: '/app/applications',
             getHref: () => '/app/applications',
         },
-        discussions: {
-            path: 'discussions',
-            getHref: () => '/app/discussions',
+        register: {
+            path: '/app/application-register',
+            getHref: () => '/app/application-register',
         },
         discussion: {
             path: 'discussions/:discussionId',

@@ -1,7 +1,8 @@
-﻿from fastapi import HTTPException, Request
+﻿from fastapi import HTTPException, Request, Depends
 
 from app.db.session import SessionLocal
-from app.core.jwt import verify_access_token
+from app.core.jwt import verify_access_token, get_user_id_from_token
+from sqlalchemy.dialects.postgresql import UUID
 
 
 def get_current_user(request: Request):
@@ -18,3 +19,12 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+def get_current_user_id(request: Request) -> UUID:
+    token = request.cookies.get("access_token")
+    if not token:
+        raise HTTPException(status_code=401)
+
+    payload = verify_access_token(token)
+    return UUID(payload["sub"])

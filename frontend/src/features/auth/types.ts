@@ -1,4 +1,4 @@
-﻿import {USER_ROLES} from '@/constants/userRole';
+﻿import {USER_ROLES} from '@/constants/user-role';
 
 export type UserRole = typeof USER_ROLES[number]['value'];
 

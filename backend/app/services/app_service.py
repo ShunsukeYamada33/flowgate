@@ -1,21 +1,20 @@
-﻿from dataclasses import dataclass
+﻿from sqlalchemy.orm import Session
 
-from fastapi import HTTPException, status
-from sqlalchemy.orm import Session
-
-from app.repositories.applications_repository import get_application
-from app.repositories.user_repository import get_user_by_email, create_user
-from app.core.security import verify_password, hash_password
-from app.core.jwt import create_access_token
+from app.db.models import Application
+from app.repositories.applications_repository import get_application, create_application
+from sqlalchemy.dialects.postgresql import UUID
 
 
-class ApplicationResult:
-    id: str
-    status: str
-    title: str
-
-
-def application(db: Session) -> list[ApplicationResult]:
+def application(db: Session) -> list[Application]:
     applications = get_application(db)
     return applications
 
+def register(db: Session, title: str, content: str, applicant_id: UUID = None):
+    application = create_application(
+        db=db,
+        applicant_id=applicant_id,
+        title=title,
+        content=content,
+    )
+
+    return application

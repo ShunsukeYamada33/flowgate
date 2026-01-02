@@ -16,8 +16,7 @@ function LoginPage() {
             <LoginForm
                 onSuccess={() => {
                     navigate(
-                        redirectTo ?? paths.app.applications.getHref(),
-                        {replace: true}
+                        redirectTo ?? paths.home.getHref()
                     );
                 }}
                 defaultEmail={defaultEmail}

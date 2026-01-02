@@ -5,4 +5,7 @@ class ApplicationsResponse(BaseModel):
     id: str
     status: str
     title: str
-    token_type: str = "bearer"
+
+class RegisterRequest(BaseModel):
+    title: str
+    content: str

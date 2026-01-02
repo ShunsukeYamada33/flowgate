@@ -1,6 +1,7 @@
 ﻿from datetime import datetime, timedelta
 from jose import jwt, JWTError
 from fastapi import HTTPException, status
+from sqlalchemy.dialects.postgresql import UUID
 
 import app.core.config as config
 
@@ -35,3 +36,8 @@ def verify_access_token(token: str) -> dict:
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid or expired token",
         )
+
+
+def get_user_id_from_token(token: str) -> UUID:
+    payload = verify_access_token(token)
+    return UUID(payload.get("sub"))

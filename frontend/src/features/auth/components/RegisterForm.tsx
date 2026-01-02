@@ -1,8 +1,7 @@
-﻿import {useState} from "react";
-import * as React from "react";
-import {useRegister} from "@/features/auth/hooks/useRegister";
-import {USER_ROLES} from "@/constants/userRole";
+﻿import {type FormEvent, useState} from "react";
+import {USER_ROLES} from "@/constants/user-role";
 import type {RegisterInput} from "@/features/auth/types";
+import {useRegister} from "@/lib/Auth";
 
 type RegisterFormProps = {
     onSuccess: (email: string) => void;
@@ -13,11 +12,11 @@ export const RegisterForm = ({onSuccess}: RegisterFormProps) => {
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('employee');
 
-    const {register, isLoading, error} = useRegister(onSuccess);
+    const register = useRegister({onSuccess});
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        await register({email, password, role} as RegisterInput);
+        register.mutate({email, password, role} as RegisterInput);
     };
 
     return (
@@ -57,12 +56,6 @@ export const RegisterForm = ({onSuccess}: RegisterFormProps) => {
                     ))}
                 </select>
             </div>
-
-            {error && <p style={{color: 'red'}}>{error}</p>}
-
-            <button type="submit" disabled={isLoading}>
-                {isLoading ? 'Registering...' : 'Register'}
-            </button>
         </form>
     );
 };

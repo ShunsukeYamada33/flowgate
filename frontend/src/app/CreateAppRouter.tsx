@@ -4,7 +4,7 @@ import {paths} from "@/config/paths";
 import {ProtectedRoute} from "@/lib/ProtectedRoute";
 import type {ComponentType} from "react";
 import AppRoot from "@/app/routes/app/Root";
-import ErrorPage from "@/app/routes/ErrorPage.tsx";
+import ErrorPage from "@/app/routes/ErrorPage";
 
 type LazyRouteModule = {
     default: ComponentType;
@@ -47,6 +47,10 @@ export const createAppRouter = (queryClient: QueryClient) =>
                 {
                     path: paths.app.applications.path,
                     lazy: () => import('./routes/app/ApplicationsPage').then(convert(queryClient)),
+                },
+                {
+                    path: paths.app.register.path,
+                    lazy: () => import('./routes/app/ApplicationRegisterPage').then(convert(queryClient)),
                 },
             ],
             errorElement: <ErrorPage/>,

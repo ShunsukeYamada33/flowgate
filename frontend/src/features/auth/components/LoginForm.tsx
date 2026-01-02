@@ -1,6 +1,8 @@
 ﻿import {Link, useSearchParams} from 'react-router';
-import {paths} from "@/config/paths.ts";
+import {paths} from "@/config/paths";
 import {useEffect, useState} from "react";
+import * as React from "react";
+import type {LoginInput} from "@/features/auth/types";
 import {useLogin} from "@/lib/Auth";
 
 
@@ -19,16 +21,18 @@ export const LoginForm = ({onSuccess, defaultEmail}: LoginFormProps) => {
 
     const login = useLogin({onSuccess});
 
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        login.mutate({email, password} as LoginInput);
+    };
+
     useEffect(() => {
         setEmail(defaultEmail);
     }, [defaultEmail]);
 
     return (
         <div>
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                login.mutate({email, password});
-            }}>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <label>Email Address</label>
                     <input
@@ -54,7 +58,7 @@ export const LoginForm = ({onSuccess, defaultEmail}: LoginFormProps) => {
 
             <div>
                 <Link to={paths.auth.register.getHref(redirectTo)}>
-                    Register
+                    新規登録
                 </Link>
             </div>
         </div>
