@@ -15,7 +15,7 @@ function LoginPage() {
                 onSuccess={() => {
                     navigate(
                         paths.home.path,
-                        {replace: true}
+                        {replace: true, state: {refresh: true}},
                     );
                 }}
                 defaultEmail={defaultEmail}

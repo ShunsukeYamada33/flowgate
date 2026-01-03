@@ -56,6 +56,10 @@ export const createAppRouter = (queryClient: QueryClient) =>
                     path: paths.app.applicationCheck.path,
                     lazy: () => import('./routes/app/ApplicationCheckPage').then(convert(queryClient)),
                 },
+                {
+                    path: paths.app.applicationEdit.path,
+                    lazy: () => import('./routes/app/ApplicationEditPage').then(convert(queryClient)),
+                },
             ],
             errorElement: <ErrorPage/>,
         },

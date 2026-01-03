@@ -1,5 +1,8 @@
 ﻿import {FetchError} from "@/lib/fetch-error";
 
+/**
+ * ログイン済みかチェック
+ */
 export const me = async () => {
 
     const res = await fetch('/api/auth/me', {

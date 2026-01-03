@@ -1,11 +1,12 @@
 ﻿import {useApplications} from "@/features/applications/hooks/use-applications";
 import {Link} from "react-router";
 import {paths} from "@/config/paths";
-import {APPLICATION_STATUS_LABEL_MAP} from "@/constants/application-status.ts";
+import {APPLICATION_STATUS_LABEL_MAP} from "@/constants/application-status";
+import type {Application} from "@/features/applications/types";
 
 
 type ApplicationTableProps = {
-    onCheck: (id: string) => void;
+    onCheck: (app: Application) => void;
 }
 
 export const ApplicationTable = ({onCheck}: ApplicationTableProps) => {
@@ -19,8 +20,8 @@ export const ApplicationTable = ({onCheck}: ApplicationTableProps) => {
         return <p>Failed to load applications</p>;
     }
 
-    const handleSubmit = async (id: string) => {
-        onCheck(id)
+    const handleCheck = async (app: Application) => {
+        onCheck(app)
     }
 
     return (
@@ -31,6 +32,7 @@ export const ApplicationTable = ({onCheck}: ApplicationTableProps) => {
                     <th>タイトル</th>
                     <th>コンテンツ</th>
                     <th>ステータス</th>
+                    <th>詳細</th>
                 </tr>
                 </thead>
 
@@ -41,7 +43,9 @@ export const ApplicationTable = ({onCheck}: ApplicationTableProps) => {
                         <td>{app.content}</td>
                         <td>{APPLICATION_STATUS_LABEL_MAP[app.status]}</td>
                         <td>
-                            <button type={"submit"} onSubmit={() => handleSubmit(app.id)}>確認</button>
+                            <button type="button" onClick={() => handleCheck(app)}>
+                                確認
+                            </button>
                         </td>
                     </tr>
                 ))}

@@ -3,7 +3,11 @@
 import {register} from '../api/create-application';
 import type {RegisterInput} from '../types';
 
-export const useRegister = (onSuccess?: () => void) => {
+/**
+ * 申請を登録するフック
+ * @param onSuccess 作成されたapplication_idを渡す
+ */
+export const useRegister = (onSuccess?: (id: string) => void) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -12,8 +16,8 @@ export const useRegister = (onSuccess?: () => void) => {
         setError(null);
 
         try {
-            await register(data);
-            onSuccess?.();
+            const res = await register(data);
+            onSuccess?.(res.id);
         } catch (e) {
             setError(e instanceof Error ? e.message : 'Register failed');
             throw e;

@@ -2,24 +2,25 @@
 import {paths} from "@/config/paths";
 import {useNavigate} from "react-router";
 import {useLocation} from "react-router-dom";
-import {CheckForm} from "@/features/applications/components/CheckForm";
+import {EditForm} from "@/features/applications/components/EditForm";
 import {useQueryClient} from "@tanstack/react-query";
 
-function ApplicationCheckPage() {
+function ApplicationEditPage() {
     const navigate = useNavigate();
     const location = useLocation()
     const queryClient = useQueryClient();
     const id = location.state?.id ?? '';
 
     return (
-        <ContentLayout title="申請確認">
-            <CheckForm
+        <ContentLayout title="申請修正">
+            <EditForm
                 onSuccess={() => {
                     queryClient.invalidateQueries(({queryKey: ['applications']}));
                     navigate(paths.app.applications.path)
                 }}
                 onBack={() => {
-                    navigate(-1)
+                    queryClient.invalidateQueries(({queryKey: ['applications']}));
+                    navigate(paths.app.applications.path)
                 }}
                 id={id}
             />
@@ -27,4 +28,4 @@ function ApplicationCheckPage() {
     );
 }
 
-export default ApplicationCheckPage;
+export default ApplicationEditPage;

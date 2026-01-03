@@ -2,8 +2,8 @@
 
 
 class ApplicationStatus(str, Enum):
-    DRAFT = "DRAFT"
-    SUBMITTED = "SUBMITTED"
-    RETURNED = "RETURNED"
-    APPROVED = "APPROVED"
-    REJECTED = "REJECTED"
+    DRAFT = "draft"
+    SUBMITTED = "submitted"
+    RETURNED = "returned"
+    APPROVED = "approve"
+    REJECTED = "rejected"

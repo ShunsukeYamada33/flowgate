@@ -19,5 +19,14 @@ class RegisterRequest(BaseModel):
     content: str
     status: str
 
+
+class RegisterResponse(BaseModel):
+    id: str
+
+
+class UpdateRequest(BaseModel):
+    id: str
+
+
 class CheckRequest(BaseModel):
     id: str

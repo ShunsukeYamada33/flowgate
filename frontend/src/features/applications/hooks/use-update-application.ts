@@ -1,8 +1,12 @@
 ﻿import {useState} from "react";
 
 import type {UpdateInput} from '../types';
-import {update} from "@/features/applications/api/update-application.ts";
+import {update} from "@/features/applications/api/update-application";
 
+/**
+ * 申請を更新するフック
+ * @param onSuccess 更新成功時に実行する関数
+ */
 export const useUpdateApplication = (onSuccess?: () => void) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);

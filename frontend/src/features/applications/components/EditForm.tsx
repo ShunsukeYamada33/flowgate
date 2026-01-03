@@ -2,15 +2,17 @@
 import {type UpdateInput} from "@/features/applications/types";
 import {useGetApplication} from "@/features/applications/hooks/use-get-application";
 import * as React from "react";
+import {useEffect, useState} from "react";
 import {APPLICATION_STATUS_LABEL_MAP} from "@/constants/application-status";
 
-type CheckFormProps = {
+type EditFormProps = {
     onSuccess: () => void;
     onBack: () => void;
     id: string;
 };
 
-export const CheckForm = ({onSuccess, onBack, id}: CheckFormProps) => {
+
+export const EditForm = ({onSuccess, onBack, id}: EditFormProps) => {
     const {
         data,
         isLoading: isFetching,
@@ -25,7 +27,21 @@ export const CheckForm = ({onSuccess, onBack, id}: CheckFormProps) => {
         await update({id} as UpdateInput);
     };
 
-    const canSubmit = data?.status === "draft" || data?.status === 'returned';
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+
+    useEffect(() => {
+        const syncFormData = () => {
+            if (data) {
+                setTitle(data.title ?? '');
+                setContent(data.content ?? '');
+            }
+        };
+
+        syncFormData();
+    }, [data]);
+
+    const canSubmit = data?.status === "draft";
 
     if (isFetching) {
         return <p>Loading...</p>;
@@ -40,13 +56,25 @@ export const CheckForm = ({onSuccess, onBack, id}: CheckFormProps) => {
         <div>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <p>タイトル {data?.title}</p>
+                    <label>タイトル</label>
+                    <input
+                        type="text"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                    />
                 </div>
                 <div>
-                    <p>コンテンツ {data?.content}</p>
+                    <label>コンテンツ</label>
+                    <input
+                        type="text"
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                        required
+                    />
                 </div>
                 <div>
-                    <p>ステータス {data?.status && APPLICATION_STATUS_LABEL_MAP[data.status]}</p>
+                    <label>ステータス {data?.status && APPLICATION_STATUS_LABEL_MAP[data.status]}</label>
                 </div>
 
                 {error && <p style={{color: 'red'}}>{error}</p>}

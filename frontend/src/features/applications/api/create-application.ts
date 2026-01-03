@@ -1,6 +1,9 @@
 ﻿import type {RegisterInput} from "@/features/applications/types";
 
-
+/**
+ * 申請データの新規作成
+ * @param input id
+ */
 export const register = async (input: RegisterInput) => {
 
     const res = await fetch('/api/app/register-application', {

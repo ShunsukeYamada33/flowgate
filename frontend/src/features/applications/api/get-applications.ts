@@ -1,8 +1,11 @@
 ﻿import type {Application} from "../types";
 
+/**
+ * ログインしているユーザの申請データを全て取得
+ */
 export const getApplications = async (): Promise<Application[]> => {
     const res = await fetch("/api/app/applications", {
-        method: 'POST',
+        method: 'GET',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',
         });

@@ -33,6 +33,10 @@
             path: '/app/application-check',
             getHref: () => '/app/application-check',
         },
+        applicationEdit: {
+            path: '/app/application-edit',
+            getHref: () => '/app/application-edit',
+        },
     },
     error: {
         root: {

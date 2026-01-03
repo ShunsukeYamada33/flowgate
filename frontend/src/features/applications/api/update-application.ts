@@ -1,6 +1,10 @@
 ﻿import type {UpdateInput} from "@/features/applications/types";
 
 
+/**
+ * 申請データの更新
+ * @param input id
+ */
 export const update = async (input: UpdateInput) => {
 
     const res = await fetch('/api/app/update-application', {
@@ -10,6 +14,6 @@ export const update = async (input: UpdateInput) => {
         body: JSON.stringify(input),
     });
 
-    if (!res.ok) throw new Error('Register failed');
+    if (!res.ok) throw new Error('Update failed');
     return res.json();
 };
