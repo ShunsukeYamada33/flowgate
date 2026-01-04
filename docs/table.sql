@@ -30,7 +30,7 @@ CREATE TABLE approval_histories(
     , action VARCHAR NOT NULL
     , actor_id UUID NOT NULL
     , comment TEXT
-    , acted_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    , acted_at DATETIME NOT NULL DEFAULT now()
     , FOREIGN KEY (application_id) REFERENCES applications(id) 
         ON 
     DELETE CASCADE
@@ -38,13 +38,3 @@ CREATE TABLE approval_histories(
         ON 
     DELETE RESTRICT
 ); 
-
-
-
-
-
-select * from users;
-delete from users where email = 'test@test.com';
-
-
-select * from applications where  applicant_id = 'f2abd2da-53e9-4197-915d-f93dfb6ac8ce';

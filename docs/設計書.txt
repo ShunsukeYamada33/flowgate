@@ -1,0 +1,194 @@
+ChatGPTに設計書の作成依頼を出し、それを一部修正したもの
+
+
+11. ロール × ステータス 操作マトリクス
+11.1 申請者（一般社員）
+ステータス	編集	提出	取下げ	閲覧
+DRAFT	○	○	-	○
+SUBMITTED	×	-	○	○
+RETURNED	○	○	-	○
+APPROVED	×	-	-	○
+REJECTED	×	-	-	○
+
+※ SUBMITTED 状態の申請は編集不可とする。
+
+11.2 承認者
+ステータス	承認	却下	差戻し	閲覧
+SUBMITTED	○	○	○	○
+APPROVED	-	-	-	○
+REJECTED	-	-	-	○
+
+※ 承認・却下・差戻しは SUBMITTED 状態のみ実施可能。
+
+11.3 管理者
+ステータス	閲覧	編集	ステータス変更
+全状態	○	×	×
+
+※ 管理者は原則として業務データを直接変更しない。
+
+12. アクション別 業務ルール詳細
+12.1 申請提出（DRAFT → SUBMITTED）
+
+必須入力項目がすべて入力されていること
+
+提出後は申請内容の編集不可
+
+12.2 承認（SUBMITTED → APPROVED）
+
+承認者のみ実行可能
+
+承認コメントは任意
+
+承認後の申請は不変（再編集不可）
+
+12.3 却下（SUBMITTED → REJECTED）
+
+承認者のみ実行可能
+
+却下理由コメントは必須
+
+却下後の申請は不変
+
+12.4 差戻し（SUBMITTED → RETURNED）
+
+承認者のみ実行可能
+
+差戻し理由コメントは必須
+
+RETURNED 状態の申請は申請者のみ編集可能
+
+13. 履歴管理方針
+13.1 承認履歴
+
+以下の操作はすべて履歴として保存する。
+
+提出
+
+承認
+
+却下
+
+差戻し
+
+保存内容：
+
+操作種別
+
+操作者
+
+操作日時
+
+コメント（任意／必須は操作種別に依存）
+
+14. 設計上の補足（レビューコメント反映）
+
+ステータス遷移は API レベルで厳密に制御する
+
+フロントエンドは「表示制御のみ」とし、最終的な判定はバックエンドで行う
+
+不正なステータス遷移は 400 エラーとして扱う
+
+
+詳細設計：DB設計・ドメインモデル
+15. 設計方針
+
+業務ルールはドメイン層に集約する
+
+ステータス遷移は Entity のメソッド経由のみ許可する
+
+DB 更新は Repository を通じて行う
+
+「直接更新禁止（UPDATE禁止）」の思想を徹底する
+
+16. ドメインモデル概要
+16.1 エンティティ一覧
+エンティティ	概要
+User	利用者（申請者・承認者・管理者）
+Application	申請本体
+ApprovalHistory	承認・操作履歴
+17. ステータス定義（Domain Enum）
+class ApplicationStatus(Enum):
+    DRAFT = "draft"
+    SUBMITTED = "submitted"
+    RETURNED = "returned"
+    APPROVED = "approved"
+    REJECTED = "rejected"
+
+※ ステータスは文字列で永続化し、数値は使用しない
+
+18. ドメインエンティティ設計
+18.1 Application（申請）
+属性
+項目	型	説明
+id	UUID	申請ID
+applicant_id	UUID	申請者ID
+status	ApplicationStatus	現在ステータス
+title	string	申請タイトル
+content	text	申請内容
+ドメインメソッド
+
+submit()
+
+approve(approver_id, comment)
+
+reject(approver_id, comment)
+
+return_to_applicant(approver_id, comment)
+
+edit(content)
+
+ルール（抜粋）
+
+submit()
+
+status が DRAFT / RETURNED のみ許可
+
+approve() / reject() / return_to_applicant()
+
+status が SUBMITTED のみ許可
+
+edit()
+
+status が DRAFT / RETURNED のみ許可
+
+不正な操作は DomainError を送出する
+
+18.2 ApprovalHistory（承認履歴）
+属性
+項目	型	説明
+id	UUID	履歴ID
+application_id	UUID	申請ID
+action	string	submit / approve / reject / return
+actor_id	UUID	操作者ID
+comment	text	コメント
+acted_at	datetime	操作日時
+19. DBテーブル設計
+19.1 users
+カラム	型	制約
+id	UUID	PK
+name	varchar	NOT NULL
+role	varchar	NOT NULL
+19.2 applications
+カラム	型	制約
+id	UUID	PK
+applicant_id	UUID	FK(users.id)
+status	varchar	NOT NULL
+title	varchar	NOT NULL
+content	text	NOT NULL
+19.3 approval_histories
+カラム	型	制約
+id	UUID	PK
+application_id	UUID	FK(applications.id)
+action	varchar	NOT NULL
+actor_id	UUID	FK(users.id)
+comment	text	NULL
+acted_at	timestamp	NOT NULL
+20. 永続化と責務分離
+
+Router：リクエスト受付・レスポンス生成のみ
+
+Service：ユースケース単位の制御
+
+Domain：業務ルール・状態遷移
+
+Repository：DBアクセス

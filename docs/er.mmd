@@ -1,0 +1,24 @@
+erDiagram
+    users ||--o{ applications : ""
+    applications ||--o{ approval_histories : ""
+    users {
+        UUID id PK
+        VARCHAR email
+        VARCHAR password_hash
+        VARCHAR role
+    }
+    applications {
+        UUID id PK
+        UUID applicant_id FK
+        VARCHAR status
+        VARCHAR title
+        VARCHAR content
+    }
+    approval_histories {
+        UUID id PK
+        UUID application_id FK
+        VARCHAR action
+        UUID actor_id FK
+        TEXT comment
+        TIMESTAMPTZ acted_at
+    }
