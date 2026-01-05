@@ -1,6 +1,7 @@
 ﻿import {useUser} from "@/lib/Auth";
 import {paths} from "@/config/paths";
 import {useNavigate} from "react-router";
+import {ROLES} from "@/constants/user-role";
 
 const Landing = () => {
     const navigate = useNavigate();
@@ -8,7 +9,13 @@ const Landing = () => {
 
     const handleStart = () => {
         if (user.data) {
-            navigate(paths.app.applications.getHref());
+            if (user.data.role === ROLES.ADMIN) {
+                navigate(paths.app.applications.getHref()); // 管理者用ページがあればそこへ
+            } else if (user.data.role === ROLES.APPROVER) {
+                navigate(paths.app.applications.getHref()); // 承認者用ページがあればそこへ
+            } else {
+                navigate(paths.app.applications.getHref());
+            }
         } else {
             navigate(paths.auth.login.getHref());
         }

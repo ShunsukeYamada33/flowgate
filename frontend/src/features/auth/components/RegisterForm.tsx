@@ -1,5 +1,5 @@
 ﻿import {type FormEvent, useState} from "react";
-import {USER_ROLES} from "@/constants/user-role";
+import {ROLES, USER_ROLES} from "@/constants/user-role";
 import type {RegisterInput} from "@/features/auth/types";
 import {useRegister} from "@/lib/Auth";
 
@@ -10,7 +10,7 @@ type RegisterFormProps = {
 export const RegisterForm = ({onSuccess}: RegisterFormProps) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState('employee');
+    const [role, setRole] = useState(ROLES.USER);
 
     const register = useRegister({onSuccess});
 
