@@ -1,5 +1,5 @@
-﻿import {useUpdateApplication} from "@/features/applications/hooks/use-update-application";
-import {type UpdateInput} from "@/features/applications/types";
+﻿import {useSubmitApplication} from "@/features/applications/hooks/use-submit-application.ts";
+import {type SubmitInput} from "@/features/applications/types";
 import {useGetApplication} from "@/features/applications/hooks/use-get-application";
 import * as React from "react";
 import {useEffect, useState} from "react";
@@ -19,12 +19,12 @@ export const EditForm = ({onSuccess, onBack, id}: EditFormProps) => {
         error: fetchError
     } = useGetApplication(id);
 
-    const {update, isLoading, error} = useUpdateApplication(onSuccess);
+    const {submit, isLoading, error} = useSubmitApplication(onSuccess);
 
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        await update({id} as UpdateInput);
+        await submit({id} as SubmitInput);
     };
 
     const [title, setTitle] = useState('');

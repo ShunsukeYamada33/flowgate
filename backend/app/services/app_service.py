@@ -2,8 +2,8 @@
 
 from app.db.models import Application
 from app.repositories.applications_repository import get_applications, create_application, get_application, \
-    update_application
-from sqlalchemy.dialects.postgresql import UUID
+    submit_application
+from uuid import UUID
 
 
 def application(db: Session, applicant_id: UUID) -> list[Application]:
@@ -19,5 +19,5 @@ def check(db: Session, application_id: str, user_id: UUID) -> Application:
     return get_application(db, application_id, user_id)
 
 
-def update(db: Session, application_id: str, user_id: UUID):
-    return update_application(db, application_id, user_id)
+def submit(db: Session, application_id: str, user_id: UUID):
+    return submit_application(db, application_id, user_id)

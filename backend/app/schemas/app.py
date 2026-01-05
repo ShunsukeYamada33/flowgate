@@ -24,7 +24,7 @@ class RegisterResponse(BaseModel):
     id: str
 
 
-class UpdateRequest(BaseModel):
+class SubmitRequest(BaseModel):
     id: str
 
 

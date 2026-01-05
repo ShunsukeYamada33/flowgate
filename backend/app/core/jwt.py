@@ -1,7 +1,7 @@
 ﻿from datetime import datetime, timedelta
 from jose import jwt, JWTError
 from fastapi import HTTPException, status
-from sqlalchemy.dialects.postgresql import UUID
+from uuid import UUID
 
 import app.core.config as config
 

@@ -1,13 +1,13 @@
 ﻿from fastapi import APIRouter, Depends
 
 from app.api.deps import get_db, get_current_user, get_current_user_id
-from app.schemas.app import ApplicationsResponse, RegisterRequest, CheckRequest, UpdateRequest, RegisterResponse
+from app.schemas.app import ApplicationsResponse, RegisterRequest, CheckRequest, SubmitRequest, RegisterResponse
 from sqlalchemy.orm import Session
 from app.services.app_service import application as app_service
 from app.services.app_service import register as register_service
 from app.services.app_service import check as check_service
-from app.services.app_service import update as update_service
-from sqlalchemy.dialects.postgresql import UUID
+from app.services.app_service import submit as submit_service
+from uuid import UUID
 
 router = APIRouter(dependencies=[Depends(get_current_user)])
 
@@ -40,11 +40,11 @@ def application_check(
     return result
 
 
-@router.post("/update-application")
-def update_application(
-        data: UpdateRequest,
+@router.post("/submit-application")
+def submit_application(
+        data: SubmitRequest,
         db: Session = Depends(get_db),
-        user_id: str = Depends(get_current_user_id)
+        user_id: UUID = Depends(get_current_user_id)
 ):
-    result = update_service(db, data.id, user_id)
+    result = submit_service(db, data.id, user_id)
     return result

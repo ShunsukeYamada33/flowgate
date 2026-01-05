@@ -2,7 +2,7 @@
 
 from app.db.session import SessionLocal
 from app.core.jwt import verify_access_token, get_user_id_from_token
-from sqlalchemy.dialects.postgresql import UUID
+from uuid import UUID
 
 
 def get_current_user(request: Request):

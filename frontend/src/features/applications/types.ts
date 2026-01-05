@@ -14,6 +14,6 @@ export type RegisterInput = {
     status: ApplicationStatus;
 };
 
-export type UpdateInput = {
+export type SubmitInput = {
     id: string;
 }

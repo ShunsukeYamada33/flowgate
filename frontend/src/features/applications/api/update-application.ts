@@ -1,13 +1,13 @@
-﻿import type {UpdateInput} from "@/features/applications/types";
+﻿import type {SubmitInput} from "@/features/applications/types";
 
 
 /**
  * 申請データの更新
  * @param input id
  */
-export const update = async (input: UpdateInput) => {
+export const submit = async (input: SubmitInput) => {
 
-    const res = await fetch('/api/app/update-application', {
+    const res = await fetch('/api/app/submit-application', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         credentials: 'include',
