@@ -13,10 +13,10 @@ function LoginPage() {
     return (
         <AuthLayout title="ログイン">
             <LoginForm
-                onSuccess={(user) => {
-                    if (user.role === ROLES.ADMIN) {
+                onSuccess={(role) => {
+                    if (role === ROLES.ADMIN) {
                         navigate(paths.app.applications.path, {replace: true});
-                    } else if (user.role === ROLES.APPROVER) {
+                    } else if (role === ROLES.APPROVER) {
                         navigate(paths.app.applications.path, {replace: true});
                     } else {
                         navigate(paths.app.applications.path, {replace: true});

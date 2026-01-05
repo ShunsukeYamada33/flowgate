@@ -2,13 +2,13 @@
 import {paths} from "@/config/paths";
 import {useEffect, useState} from "react";
 import * as React from "react";
-import type {LoginInput, User} from "@/features/auth/types";
+import type {LoginInput} from "@/features/auth/types";
 import {useLogin} from "@/lib/Auth";
 import {useQueryClient} from "@tanstack/react-query";
 
 
 type LoginFormProps = {
-    onSuccess: (user: User) => void;
+    onSuccess: (role: string) => void;
     defaultEmail: string;
 };
 
@@ -22,9 +22,9 @@ export const LoginForm = ({onSuccess, defaultEmail}: LoginFormProps) => {
 
     const queryClient = useQueryClient();
     const login = useLogin({
-        onSuccess: async (user) => {
+        onSuccess: async (role) => {
             await queryClient.invalidateQueries();
-            onSuccess(user);
+            onSuccess(role);
         }
     });
 
